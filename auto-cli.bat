@@ -194,20 +194,30 @@ if /i "%CURL_h%" == "7B27734E0515F8937B7195ED952BBBC6309EE1EEF584DAE293751018599
 REM JDK setup
 :jdk_integ_failed
 if exist "%localappdata%\revanced-cli\revanced-jdk\" (
-	echo  [92m JDK found! [0m
+    echo  [92m JDK found! [0m
 ) else (
-	echo  [93m No JDK found... Downloading... [0m
-	echo.
-	call :fetchToolsJson "%inputJson%" JDK
-	call :downloadWithFallback "%localappdata%\revanced-cli\!fname!" "!link!" "!hash!"
-	powershell -NoProfile -NonInteractive -Command "Expand-Archive '!PSlocalData!\revanced-cli\!fname!' -DestinationPath '!PSlocalData!\revanced-cli'"
-	del "%localappdata%\revanced-cli\!fname!"
+    echo  [93m No JDK found... Downloading... [0m
+    echo.
+    call :fetchToolsJson "%inputJson%" JDK
+    call :downloadWithFallback "%localappdata%\revanced-cli\!fname!" "!link!" "!hash!"
+    REM Extract to a temp folder first
+    set "JDK_TMP=%localappdata%\revanced-cli\jdk_tmp"
+    rmdir /s /q "!JDK_TMP!" > nul 2> nul
+    powershell -NoProfile -NonInteractive -Command "Expand-Archive '!PSlocalData!\revanced-cli\!fname!' -DestinationPath '!JDK_TMP!'"
+    REM Move contents up to revanced-jdk
+    mkdir "%localappdata%\revanced-cli\revanced-jdk" > nul 2> nul
+    REM Move contents up to revanced-jdk (remove top-level folder)
+    for /d %%D in ("!JDK_TMP!\*") do (
+        xcopy /E /H /Y "%%D\*" "%localappdata%\revanced-cli\revanced-jdk\" > nul
+    )
+    rmdir /s /q "!JDK_TMP!" > nul 2> nul
+    del "%localappdata%\revanced-cli\!fname!"
 )
 set "JDK=%localappdata%\revanced-cli\revanced-jdk\bin\java.exe"
 set "KEYTOOL=%localappdata%\revanced-cli\revanced-jdk\bin\keytool.exe"
 set "JDK_ps=!PSlocalData!\revanced-cli\revanced-jdk\bin\java.exe"
 FOR /F "tokens=* USEBACKQ" %%F IN (`powershell -NoProfile -NonInteractive -Command "Get-FileHash -Algorithm SHA256 '%JDK_ps%' | Select -ExpandProperty Hash"`) DO ( SET JDK_h=%%F )
-if /i "%JDK_h%" == "6BB6621B7783778184D62D1D9C2D761F361622DD993B0563441AF2364C8A720B " (
+if /i "%JDK_h%" == "0F1146BD5785ECF38DFE265DC2BC5830ED911ACAEA918E9EF36018D1E58CF400 " (
 	echo  [92m JDK integrity validated! [0m
 ) else (
 	echo  [93m JDK integrity invalid... Something must've become corrupted during the download [0m
