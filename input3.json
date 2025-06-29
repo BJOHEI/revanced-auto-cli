@@ -19,8 +19,8 @@
             },
             "JDK": {
                 "fname": "jdk.zip",
-                "link": "https://cdn.discordapp.com/attachments/1149345921516187789/1149793623324504084/jdk.zip?ex=673502c1&is=6733b141&hm=88d261901159bcb09f52019fff3a29add233aa62297b67dd25d4541fae9f5352&",
-                "hash": "5c6b84417f108479c0ff5adc5a3bff1e1af531129573fcfeb2520f8395282e34"
+                "link": "https://cdn.azul.com/zulu/bin/zulu24.30.11-ca-jdk24.0.1-win_x64.zip",
+                "hash": "5bc4ee65329d533dea2d28b3773097f0f1b506f8e55c04c14fe64a8032929f7f"
             },
             "BCS": {
                 "fname": "bcprov-jdk18on-176.jar",

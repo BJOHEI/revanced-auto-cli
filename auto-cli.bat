@@ -113,25 +113,25 @@ set "MODE=main"
 
 REM refresh input json 
 del "%localappdata%\revanced-cli\input.json" > nul 2> nul
-powershell -NoProfile -NonInteractive -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/taku-nm/auto-cli/!MODE!/input3.json' -OutFile '!PSlocalData!\revanced-cli\input.json' -Headers @{'Cache-Control'='no-cache'}"
+powershell -NoProfile -NonInteractive -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/BJOHEI/revanced-auto-cli/master/input3.json' -OutFile '!PSlocalData!\revanced-cli\input.json' -Headers @{'Cache-Control'='no-cache'}"
 if exist "%localappdata%\revanced-cli\input.json" (
    set "inputJson=!PSlocalData!\revanced-cli\input.json"
 ) else (
-	echo  [93m Input.json download failed... Attempting to circumvent geo-blocking... [0m
-	powershell -NoProfile -NonInteractive -Command "Invoke-WebRequest 'http://user737.bplaced.net/downloads/revanced/input3.json' -OutFile '!PSlocalData!\revanced-cli\input.json' -Headers @{'Cache-Control'='no-cache'}"
-	if exist "%localappdata%\revanced-cli\input.json" (
+    echo  [93m Input.json download failed... Attempting to circumvent geo-blocking... [0m
+    powershell -NoProfile -NonInteractive -Command "Invoke-WebRequest 'https://raw.githubusercontent.com/BJOHEI/revanced-auto-cli/master/input3.json' -OutFile '!PSlocalData!\revanced-cli\input.json' -Headers @{'Cache-Control'='no-cache'}"
+    if exist "%localappdata%\revanced-cli\input.json" (
        set "inputJson=!PSlocalData!\revanced-cli\input.json"
    ) else (
-		 echo.
-	    echo  [91m FATAL [0m
-		 echo  [91m input.json could not be loaded... are you offline? [0m
-		 echo  Contact taku on ReVanced discord or open an issue on GitHub.
-		 echo  Include a screenshot of the entire terminal.
-		 echo.
+         echo.
+        echo  [91m FATAL [0m
+         echo  [91m input.json could not be loaded... are you offline? [0m
+         echo  Contact taku on ReVanced discord or open an issue on GitHub.
+         echo  Include a screenshot of the entire terminal.
+         echo.
        echo  Pressing any key will close this window.
        pause > nul 2> nul
        EXIT
-	)
+    )
 )
 
 REM script version check
@@ -206,7 +206,7 @@ if exist "%localappdata%\revanced-cli\revanced-jdk\" (
 set "JDK=%localappdata%\revanced-cli\revanced-jdk\bin\java.exe"
 set "KEYTOOL=%localappdata%\revanced-cli\revanced-jdk\bin\keytool.exe"
 set "JDK_ps=!PSlocalData!\revanced-cli\revanced-jdk\bin\java.exe"
-FOR /F "tokens=* USEBACKQ" %%F IN (`powershell -NoProfile -NonInteractive -Command "Get-FileHash -Algorithm SHA256 '%JDK_ps%' | Select-Object -ExpandProperty Hash"`) DO ( SET JDK_h=%%F )
+FOR /F "tokens=* USEBACKQ" %%F IN (`powershell -NoProfile -NonInteractive -Command "Get-FileHash -Algorithm SHA256 '%JDK_ps%' | Select -ExpandProperty Hash"`) DO ( SET JDK_h=%%F )
 if /i "%JDK_h%" == "6BB6621B7783778184D62D1D9C2D761F361622DD993B0563441AF2364C8A720B " (
 	echo  [92m JDK integrity validated! [0m
 ) else (
