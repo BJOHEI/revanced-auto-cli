@@ -20,7 +20,7 @@
             "JDK": {
                 "fname": "jdk.zip",
                 "link": "https://cdn.azul.com/zulu/bin/zulu24.30.11-ca-jdk24.0.1-win_x64.zip",
-                "hash": "5bc4ee65329d533dea2d28b3773097f0f1b506f8e55c04c14fe64a8032929f7f"
+                "hash": "0F1146BD5785ECF38DFE265DC2BC5830ED911ACAEA918E9EF36018D1E58CF400"
             },
             "BCS": {
                 "fname": "bcprov-jdk18on-176.jar",
