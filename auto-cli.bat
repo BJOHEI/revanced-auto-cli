@@ -328,7 +328,7 @@ if %c_choice% geq 1 if %c_choice% leq %k% (
 echo [93m Ensure that the ONLY files in revanced-cli-input are the app, cli, patches and integrations that you would want to use. [0m
 echo  The app [93mMUST[0m be called 'input.apk' 
 echo  The CLI [93mMUST[0m be called 'cli.jar' 
-echo  The patches [93mMUST[0m be called 'patches.jar'.
+echo  The patches [93mMUST[0m be called 'patches.rvp'.
 echo  The integrations [93mMUST[0m be called 'integrations.apk'
 echo [93m CLI, Patches and integrations are optional. Not providing them will cause the script to use official ReVanced tools. [0m
 echo Once you're ready, press any key to continue...
@@ -347,11 +347,11 @@ if exist ..\revanced-cli-input\cli.jar (
 ) else (
 	echo  No cli.jar found... Continuing using official ReVanced CLI
 )
-if exist ..\revanced-cli-input\patches.jar (
-	echo [92m patches.jar found! [0m
-	set PATCHES=..\revanced-cli-input\patches.jar
+if exist ..\revanced-cli-input\patches.rvp (
+	echo [92m patches.rvp found! [0m
+	set PATCHES=..\revanced-cli-input\patches.rvp
 ) else (
-	echo  No patches.jar found... Continuing using official ReVanced patches
+	echo  No patches.rvp found... Continuing using official ReVanced patches
 )
 if exist ..\revanced-cli-input\integrations.apk (
 	echo [92m integrations.apk found! [0m
@@ -361,7 +361,7 @@ if exist ..\revanced-cli-input\integrations.apk (
 )
 echo.
 echo  [92m All files loaded! [0m
-if exist ..\revanced-cli-input\patches.jar (
+if exist ..\revanced-cli-input\patches.rvp (
 	echo  You've selected a custom patch source. At the next step you will see all available patches.
 	echo.
 	pause
